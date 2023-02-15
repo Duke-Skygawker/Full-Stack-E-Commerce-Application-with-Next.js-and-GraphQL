@@ -30,6 +30,9 @@ const typeDefs = /* GraphQL */ `
     products(limit: Int): [Product]
     categories: [Category]
   }
+  type Mutation {
+    addToCart(productId: Int!): Cart
+  }
 `;
 
 const mocks = {
@@ -40,9 +43,33 @@ const mocks = {
   }),
 };
 
+const resolvers = {
+  Mutation: {
+    addToCart: (_, { productId }) => {
+      cart = {
+        ...cart,
+        count: cart.count + 1,
+        products: [
+          ...cart.products,
+          {
+            productId,
+            title: "My product",
+            thumbnail: "https://picsum.photos/400/400",
+            price: (Math.random() * 99.0 + 1.0).toFixed(2),
+            category: null,
+          },
+        ],
+      };
+
+      return cart;
+    },
+  },
+};
+
 const executableSchema = addMocksToSchema({
   schema: makeExecutableSchema({ typeDefs }),
   mocks,
+  resolvers,
 });
 
 function runMiddleware(req, res, fn) {
