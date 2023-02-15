@@ -2,6 +2,12 @@ import { graphqlHTTP } from "express-graphql";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { addMocksToSchema } from "@graphql-tools/mock";
 
+let cart = {
+  count: 0,
+  products: [],
+  complete: false,
+};
+
 const typeDefs = /* GraphQL */ `
   type Product {
     id: Int!
@@ -13,6 +19,11 @@ const typeDefs = /* GraphQL */ `
   type Category {
     id: Int!
     title: String!
+  }
+  type Cart {
+    count: Int
+    products: [Product]
+    complete: Boolean
   }
   type Query {
     product: Product
