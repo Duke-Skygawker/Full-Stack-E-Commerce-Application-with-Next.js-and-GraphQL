@@ -44,6 +44,9 @@ const mocks = {
 };
 
 const resolvers = {
+  Query: {
+    cart: () => cart,
+  },
   Mutation: {
     addToCart: (_, { productId }) => {
       cart = {
