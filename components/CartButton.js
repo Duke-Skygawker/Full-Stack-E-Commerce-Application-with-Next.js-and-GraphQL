@@ -12,7 +12,9 @@ export const GET_CART_TOTAL = gql`
 function CartButton({ ...props }) {
   const { loading, data } = useQuery(GET_CART_TOTAL);
 
-  return <Button {...props}>{loading ? "Cart" : `Cart (0)`}</Button>;
+  return (
+    <Button {...props}>{loading ? "Cart" : `Cart (${data.cart.count})`}</Button>
+  );
 }
 
 export default CartButton;

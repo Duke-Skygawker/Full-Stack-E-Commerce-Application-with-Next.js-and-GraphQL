@@ -29,6 +29,7 @@ const typeDefs = /* GraphQL */ `
     product: Product
     products(limit: Int): [Product]
     categories: [Category]
+    cart: Cart
   }
   type Mutation {
     addToCart(productId: Int!): Cart
@@ -45,7 +46,9 @@ const mocks = {
 
 const resolvers = {
   Query: {
-    cart: () => cart,
+    cart() {
+      return cart;
+    },
   },
   Mutation: {
     addToCart: (_, { productId }) => {
