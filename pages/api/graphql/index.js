@@ -83,6 +83,16 @@ const resolvers = {
 
       return cart;
     },
+    completeCart: (_, {}, { token }) => {
+      if (token && isTokenValid(token)) {
+        cart = {
+          count: 0,
+          products: [],
+          complete: true,
+        };
+        return cart;
+      }
+    },
   },
 };
 
